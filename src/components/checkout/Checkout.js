@@ -1,10 +1,24 @@
 import React from 'react'
-import { useStateValue } from "../stateProvider/StateProvider"
+//import { useStateValue } from "../stateProvider/StateProvider"
 import "./Checkout.css"
 import CheckoutProduct from "../checkoutProduct/CheckoutProduct"
 import Subtotal from "../subtotal/Subtotal"
+
+import config from "../../config.json";
+import axios from 'axios';
+
+let basket = []
+
 function Checkout() {
-    const [{ basket }] = useStateValue()
+    //OLD const [{ basket }] = useStateValue()
+
+    axios.get(config.SERVER + config.API + config.REST.SHOPPING_CART).then(function (response) {
+        console.log(response);
+        basket = response.data;
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
 
     return (
         <div className="checkout">
@@ -25,7 +39,7 @@ function Checkout() {
                             console.log(item)
                         return (
                             <CheckoutProduct
-                                id={item.id}
+                                code={item.code}
                                 title={item.title}
                                 image={item.image}
                                 price={item.price}

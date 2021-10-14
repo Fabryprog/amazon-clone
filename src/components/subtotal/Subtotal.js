@@ -3,10 +3,21 @@ import CurrencyFormat from 'react-currency-format';
 import {useStateValue} from "../stateProvider/StateProvider"
 import "./Subtotal.css"
 import { getBasketTotal } from '../../reducer';
+import config from "../../config.json";
+import axios from 'axios';
+
+let basket = []
 
 function Subtotal() {
-    const [{basket}, dispatch] = useStateValue();
+    axios.get(config.SERVER + config.API + config.REST.SHOPPING_CART).then(function (response) {
+        console.log(response);
+        basket = response.data;
+    })
+    .catch(function (error) {
+        console.log(error);
+    })    
 
+    
     return (
         <div className="subtotal">
             {/* price */}

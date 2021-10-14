@@ -1,13 +1,28 @@
 import React from 'react'
 import "./checkoutProduct.css"
 import {useStateValue} from "../stateProvider/StateProvider"
-function CheckoutProduct({id, image, title, price, rating}) {
+import config from "../../config.json";
+import axios from 'axios';
+
+function CheckoutProduct({code, image, title, price, rating}) {
     const [{}, dispatch] = useStateValue();
-    const removeFromBasket = () => {
+    const removeFromBasketOLD = () => {
         // remove from basket
         dispatch({
             type: "REMOVE_FROM_BASKET",
-            id
+            code
+        })
+    }
+
+
+    const removeFromBasket = () => {
+        axios.put(config.SERVER + config.API + config.REST.SHOPPING_CART + "/" + code).then(function (response) {
+            console.log(response);
+            //TODO web notify
+            window.location.reload(false); 
+        })
+        .catch(function (error) {
+            console.log(error);
         })
     }
 

@@ -1,4 +1,28 @@
 import firebase from "firebase";
+import config from "./config.json";
+
+//TODO configurazione globale
+//TODO da rinominare alla fine del refactoring
+
+// signInWithEmailAndPassword(email, password)
+//createUserWithEmailAndPassword(email, password)
+
+function signInWithEmailAndPassword(email, password) {
+    const requestOptions = {
+        method: config.REST.LOGIN.method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "username": email, "password": password })
+    };
+    fetch(config.SERVER_URL + config.REST.LOGIN.uri, requestOptions)
+        .then(response => response.json())
+        .then(data => this.setState({ postId: data.id }));
+}
+
+
+function createUserWithEmailAndPassword() {
+
+}
+
 
 const firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyB9wrSph4bUfZsXZC0iCBlPlULjoIvLMYQ",

@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import "./Login.css"
 import {Link, useHistory} from "react-router-dom"
 import {auth} from "../../firebase"
+import {signInWithEmailAndPassword} from "../../authenticator"
+
 function Login() {
 
     const history = useHistory()
@@ -10,7 +12,7 @@ function Login() {
 
     const signIn = (event) => {
         event.preventDefault()
-        auth.signInWithEmailAndPassword(email, password)
+        signInWithEmailAndPassword(email, password)
             .then( auth => {
                 //redirect to home page
                 history.push("/")

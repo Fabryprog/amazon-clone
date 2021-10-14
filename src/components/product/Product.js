@@ -1,15 +1,17 @@
 import React from 'react'
 import "./Product.css"
 import { useStateValue } from "../stateProvider/StateProvider"
+import config from "../../config.json";
+import axios from 'axios';
 
-function Product({id, title, price, rating, image}) {
+function Product({code, title, price, rating, image}) {
     const [{}, dispatch] = useStateValue();
-    const addToBasket = () => {
+    const addToBasketOLD = () => {
         //Add item to basket...
         dispatch({
             type: "ADD_TO_BASKET",
             item: {
-                id,
+                code,
                 title,
                 image,
                 price,
@@ -17,6 +19,16 @@ function Product({id, title, price, rating, image}) {
             }
         })
     };
+
+    const addToBasket = () => {
+        axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART, {"code": code}).then(function (response) {
+            console.log(response);
+            //TODO web notify
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
 
     return (
         <div className="product">

@@ -1,0 +1,9 @@
+{
+    "SERVER": "http://localhost:8080",
+    "API": "/api/v1", 
+    "REST": {
+        "LOGIN": "/login",
+        "PRODUCT_LIST": "/product",
+        "SHOPPING_CART": "/product/cart"
+    }
+}
