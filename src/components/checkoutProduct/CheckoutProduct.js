@@ -4,8 +4,14 @@ import config from "../../config.json";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 
-function CheckoutProduct({code, image, title, price, rating}) {
-    const removeFromBasket = () => {
+//{code, image, title, price, rating}
+class CheckoutProduct extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+    
+    removeFromBasket = (code) => {
         axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART + "/" + code, {}, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
             console.log(response);
             window.location.reload(false); 
@@ -15,25 +21,27 @@ function CheckoutProduct({code, image, title, price, rating}) {
         })
     }
 
-    return (
-        <div className="checkoutProduct">
-            <img src={image} alt=""/>
-            <div className="checkoutProduct__info">
-                <p className="checkoutProduct__title">{title}</p>
-                <p className="checkoutProduct__price">
-                    <small>$</small>
-                    <strong>{price}</strong>
-                </p>
+    render() {
+        return (
+            <div className="checkoutProduct">
+                <img src={this.props.image} alt=""/>
+                <div className="checkoutProduct__info">
+                    <p className="checkoutProduct__title">{this.props.title}</p>
+                    <p className="checkoutProduct__price">
+                        <small>$</small>
+                        <strong>{this.props.price}</strong>
+                    </p>
 
-                <div className="checkoutProduct__rating">
-                    {Array(rating).fill().map((index) => (
-                        <p key={index}>star</p>
-                    ))}
+                    <div className="checkoutProduct__rating">
+                        {Array(this.props.rating).fill().map((index) => (
+                            <p key={index}>star</p>
+                        ))}
+                    </div>
+                    <button onClick={() => this.removeFromBasket(this.props.code)}>Remove from basket</button>
                 </div>
-                <button onClick={removeFromBasket}>Remove from basket</button>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default CheckoutProduct
