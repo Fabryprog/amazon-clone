@@ -1,6 +1,5 @@
 import React from 'react'
 import "./Product.css"
-import { useStateValue } from "../stateProvider/StateProvider"
 import config from "../../config.json";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
@@ -8,20 +7,6 @@ import {Link, useHistory} from "react-router-dom"
 
 function Product({code, title, price, rating, image}) {
     const history = useHistory()
-    const [{}, dispatch] = useStateValue();
-    const addToBasketOLD = () => {
-        //Add item to basket...
-        dispatch({
-            type: "ADD_TO_BASKET",
-            item: {
-                code,
-                title,
-                image,
-                price,
-                rating
-            }
-        })
-    };
 
     const addToBasket = () => {
         axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART, {"code": code}, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
@@ -47,7 +32,7 @@ function Product({code, title, price, rating, image}) {
                 </p>
                 <div className="product__rating">
                     {Array(rating).fill().map((index) => (
-                        <i key={index} class="fa fa-star"></i>
+                        <i key="{index}" class="fa fa-star"></i>
                     ))}
                 </div>
             </div>

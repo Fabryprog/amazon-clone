@@ -1,5 +1,4 @@
 import React from 'react'
-//import { useStateValue } from "../stateProvider/StateProvider"
 import "./Checkout.css"
 import CheckoutProduct from "../checkoutProduct/CheckoutProduct"
 import Subtotal from "../subtotal/Subtotal"
@@ -9,9 +8,7 @@ import axios from 'axios';
 
 let basket = []
 
-function Checkout() {
-    //OLD const [{ basket }] = useStateValue()
-    
+function Checkout() {    
     axios.get(config.SERVER + config.API + config.REST.SHOPPING_CART, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
         console.log(response);
         basket = response.data;

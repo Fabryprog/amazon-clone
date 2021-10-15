@@ -1,21 +1,10 @@
 import React from 'react'
 import "./checkoutProduct.css"
-import {useStateValue} from "../stateProvider/StateProvider"
 import config from "../../config.json";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 
 function CheckoutProduct({code, image, title, price, rating}) {
-    const [{}, dispatch] = useStateValue();
-    const removeFromBasketOLD = () => {
-        // remove from basket
-        dispatch({
-            type: "REMOVE_FROM_BASKET",
-            code
-        })
-    }
-
-
     const removeFromBasket = () => {
         axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART + "/" + code, {}, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
             console.log(response);

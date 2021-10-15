@@ -1,14 +1,11 @@
 import React, {useState} from 'react'
 import "./Login.css"
-import {Link, useHistory} from "react-router-dom"
-import {auth} from "../../firebase"
-//import {signInWithEmailAndPassword} from "../../authenticator"
+import {BrowserRouter as Router, Link, useHistory} from "react-router-dom"
 import config from "./../../config.json";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
 
 function Login() {
-
     const history = useHistory()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -35,10 +32,6 @@ function Login() {
         });
     }
 
-    const register = (event) => {
-        event.preventDefault()
-        //TODO
-    }
     return (
         <div className="login">
             <Link to="/">

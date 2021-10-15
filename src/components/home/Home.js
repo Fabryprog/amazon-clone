@@ -9,15 +9,17 @@ import { bannerImg } from '../../products'
 let products = [];
 
 function Home() {
-
-    //NO AUTH
-    axios.get(config.SERVER + config.API + config.REST.PRODUCT_LIST).then(function (response) {
-        console.log(response);
-        products = response.data;
-    })
-    .catch(function (error) {
-        console.log(error);
-    })
+    setTimeout(() => {
+        //NO AUTH
+        axios.get(config.SERVER + config.API + config.REST.PRODUCT_LIST).then(function (response) {
+            console.log(response);
+            products = response.data;
+            this.setState(state => ({ loaded: true})); 
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }, 1000);
 
     return (
         <div className="home">
