@@ -5,6 +5,7 @@ import {auth} from "../../firebase"
 //import {signInWithEmailAndPassword} from "../../authenticator"
 import config from "./../../config.json";
 import axios from 'axios';
+import cogoToast from 'cogo-toast';
 
 function Login() {
 
@@ -23,12 +24,14 @@ function Login() {
             console.log(axios.defaults.headers);
             if(response.status == 200) {
             localStorage.setItem("AUTH_TOKEN", response.headers["x-token"])
+            localStorage.setItem("CURRENT_USERNAME", email)
             }
             //redirect to home page
             history.push("/")
         })
         .catch(function (error) {
             console.log(error);
+            cogoToast.error("Login Failure!");
         });
     }
 

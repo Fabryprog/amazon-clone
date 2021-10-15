@@ -3,6 +3,7 @@ import "./checkoutProduct.css"
 import {useStateValue} from "../stateProvider/StateProvider"
 import config from "../../config.json";
 import axios from 'axios';
+import cogoToast from 'cogo-toast';
 
 function CheckoutProduct({code, image, title, price, rating}) {
     const [{}, dispatch] = useStateValue();
@@ -18,7 +19,6 @@ function CheckoutProduct({code, image, title, price, rating}) {
     const removeFromBasket = () => {
         axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART + "/" + code, {}, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
             console.log(response);
-            //TODO web notify
             window.location.reload(false); 
         })
         .catch(function (error) {
