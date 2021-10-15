@@ -19,7 +19,7 @@ class Home extends React.Component {
             console.log(response);
             this.setState({products : response.data});
         })
-        .catch(function (error) {
+        .catch((error) => {
             console.log(error);
         })
     }
