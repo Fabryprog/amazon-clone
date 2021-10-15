@@ -4,8 +4,10 @@ import { useStateValue } from "../stateProvider/StateProvider"
 import config from "../../config.json";
 import axios from 'axios';
 import cogoToast from 'cogo-toast';
+import {Link, useHistory} from "react-router-dom"
 
 function Product({code, title, price, rating, image}) {
+    const history = useHistory()
     const [{}, dispatch] = useStateValue();
     const addToBasketOLD = () => {
         //Add item to basket...
@@ -28,6 +30,10 @@ function Product({code, title, price, rating, image}) {
         })
         .catch(function (error) {
             console.log(error);
+            if(error.response.status == 403) {
+                //redirect to login
+                history.push("/login")
+            }
         })
     }
 

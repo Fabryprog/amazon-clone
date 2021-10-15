@@ -9,7 +9,7 @@ import axios from 'axios';
 let basket = []
 
 function Subtotal() {
-    axios.get(config.SERVER + config.API + config.REST.SHOPPING_CART).then(function (response) {
+    axios.get(config.SERVER + config.API + config.REST.SHOPPING_CART, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
         console.log(response);
         basket = response.data;
     })
