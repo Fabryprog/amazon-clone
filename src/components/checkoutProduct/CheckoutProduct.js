@@ -16,7 +16,7 @@ function CheckoutProduct({code, image, title, price, rating}) {
 
 
     const removeFromBasket = () => {
-        axios.put(config.SERVER + config.API + config.REST.SHOPPING_CART + "/" + code).then(function (response) {
+        axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART + "/" + code, {}, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
             console.log(response);
             //TODO web notify
             window.location.reload(false); 

@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import "./Login.css"
 import {Link, useHistory} from "react-router-dom"
 import {auth} from "../../firebase"
-import {signInWithEmailAndPassword} from "../../authenticator"
+//import {signInWithEmailAndPassword} from "../../authenticator"
+import config from "./../../config.json";
+import axios from 'axios';
 
 function Login() {
 
@@ -10,28 +12,29 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    //RESET
+    localStorage.setItem("AUTH_TOKEN", null)
+
+
     const signIn = (event) => {
         event.preventDefault()
-        signInWithEmailAndPassword(email, password)
-            .then( auth => {
-                //redirect to home page
-                history.push("/")
-            })
-            .catch(err => {
-                alert(err.message)
-            })
+        
+        axios.post(config.SERVER + config.REST.LOGIN, JSON.stringify({"username": email, "password": password})).then(function (response) {
+            console.log(axios.defaults.headers);
+            if(response.status == 200) {
+            localStorage.setItem("AUTH_TOKEN", response.headers["x-token"])
+            }
+            //redirect to home page
+            history.push("/")
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     }
 
     const register = (event) => {
         event.preventDefault()
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(auth => {
-                //create a user, login and redirect to homepage
-                history.push("/")
-            })
-            .catch(err => {
-                alert(err.message)
-            })
+        //TODO
     }
     return (
         <div className="login">
@@ -51,7 +54,6 @@ function Login() {
                     <p>
                         by signing in you agree to amazon condition of use and sale.Please see our privacy notice, our cookies notice and our interest based ad notice. 
                     </p>
-                    <button onClick={register} className="login__registerBtn">create your amazon account</button>
                 </form>
             </div>
         </div>

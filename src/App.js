@@ -12,8 +12,10 @@ import Checkout from './components/checkout/Checkout';
 import Login from './components/login/Login';
 import {useStateValue} from "./components/stateProvider/StateProvider"
 import {auth} from "./firebase"
+import axios from 'axios';
 
 function App() {
+  axios.defaults.headers.post['Content-Type'] = 'application/json';
 
   const [{user}, dispatch] = useStateValue();
 
@@ -40,7 +42,7 @@ function App() {
     }
   }, [])
 
-  console.log("USER IS >>>>>", user)
+  //console.log("USER IS >>>>>", user)
   return (
     <Router>
       <div className="App">

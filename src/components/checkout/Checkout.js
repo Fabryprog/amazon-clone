@@ -11,8 +11,8 @@ let basket = []
 
 function Checkout() {
     //OLD const [{ basket }] = useStateValue()
-
-    axios.get(config.SERVER + config.API + config.REST.SHOPPING_CART).then(function (response) {
+    
+    axios.get(config.SERVER + config.API + config.REST.SHOPPING_CART, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
         console.log(response);
         basket = response.data;
     })
@@ -23,8 +23,6 @@ function Checkout() {
     return (
         <div className="checkout">
             <div className="checkout__left">
-                <img className="checkout__ad" src="https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Hero/Fuji_TallHero_45M_v2_1x._CB432458380_.jpg" alt="ad"
-                />
                 {basket?.length === 0 ? (
                     <div>
                         <h2>Your shopping basket is empty</h2>

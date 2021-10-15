@@ -9,8 +9,8 @@ import { bannerImg } from '../../products'
 let products = [];
 
 function Home() {
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+    //NO AUTH
     axios.get(config.SERVER + config.API + config.REST.PRODUCT_LIST).then(function (response) {
         console.log(response);
         products = response.data;

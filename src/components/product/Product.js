@@ -21,7 +21,7 @@ function Product({code, title, price, rating, image}) {
     };
 
     const addToBasket = () => {
-        axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART, {"code": code}).then(function (response) {
+        axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART, {"code": code}, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
             console.log(response);
             //TODO web notify
         })
