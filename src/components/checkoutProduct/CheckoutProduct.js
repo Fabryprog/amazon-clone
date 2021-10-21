@@ -14,7 +14,7 @@ class CheckoutProduct extends React.Component {
     removeFromBasket = (code) => {
         axios.post(config.SERVER + config.API + config.REST.SHOPPING_CART + "/" + code, {}, { headers: { 'Authorization': localStorage.getItem('AUTH_TOKEN')} }).then(function (response) {
             console.log(response);
-            window.location.reload(false); 
+            window.location.reload("/")
         })
         .catch(function (error) {
             console.log(error);
@@ -34,7 +34,7 @@ class CheckoutProduct extends React.Component {
 
                     <div className="checkoutProduct__rating">
                         {Array(this.props.rating).fill().map((index) => (
-                            <p key={index}>star</p>
+                            <i key="{index}" class="fa fa-star"></i>
                         ))}
                     </div>
                     <button onClick={() => this.removeFromBasket(this.props.code)}>Remove from basket</button>

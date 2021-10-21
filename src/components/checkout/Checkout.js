@@ -41,8 +41,9 @@ class Checkout extends React.Component {
                         <div>
                             <h2 className="checkout__title">Your shopping basket</h2>
                             {this.state.basket.map(item => {
+                                console.log("BASKET")
                                 console.log(item)
-                            return (
+                                return (
                                 <CheckoutProduct
                                     code={item.code}
                                     title={item.title}
